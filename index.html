@@ -7,41 +7,24 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --cream: #f5f0e8;
-      --warm-white: #faf7f2;
-      --ink: #1c1812;
-      --ink-light: #3d3529;
-      --sepia: #7a6a52;
-      --rust: #b85c38;
-      --amber: #c8913a;
-      --sage: #6b7c5e;
-      --border: rgba(122,106,82,0.18);
-      --shadow: rgba(28,24,18,0.08);
+      --cream: #f5f0e8; --warm-white: #faf7f2; --ink: #1c1812; --ink-light: #3d3529;
+      --sepia: #7a6a52; --rust: #b85c38; --amber: #c8913a; --sage: #6b7c5e;
+      --border: rgba(122,106,82,0.18); --shadow: rgba(28,24,18,0.08);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body { background: var(--cream); color: var(--ink); font-family: 'Lora', Georgia, serif; min-height: 100vh; }
-    body::before {
-      content: ''; position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
-      pointer-events: none; z-index: 9999; opacity: 0.6;
-    }
-    header {
-      background: var(--ink); padding: 1.2rem 2.5rem;
-      display: flex; align-items: center; justify-content: space-between;
-      position: sticky; top: 0; z-index: 100;
-      box-shadow: 0 2px 16px rgba(0,0,0,0.2);
-    }
+    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9999; opacity: 0.6; }
+    header { background: var(--ink); padding: 1.2rem 2.5rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 16px rgba(0,0,0,0.2); flex-wrap: wrap; gap: 0.8rem; }
     .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 300; color: var(--cream); cursor: pointer; }
     .logo em { color: var(--amber); font-style: italic; }
-    .header-actions { display: flex; gap: 1rem; align-items: center; }
-    .btn { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.55rem 1.2rem; border: none; cursor: pointer; transition: all 0.2s; }
+    .header-nav { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+    .btn { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.5rem 1rem; border: none; cursor: pointer; transition: all 0.2s; }
     .btn-primary { background: var(--rust); color: white; }
     .btn-primary:hover { background: var(--amber); }
     .btn-ghost { background: transparent; color: rgba(245,240,232,0.6); border: 1px solid rgba(245,240,232,0.2); }
-    .btn-ghost:hover { color: var(--cream); border-color: rgba(245,240,232,0.5); }
-    .view { display: none; }
-    .view.active { display: block; }
+    .btn-ghost:hover, .btn-ghost.active { color: var(--amber); border-color: var(--amber); }
+    .view { display: none; } .view.active { display: block; }
     #home-view { max-width: 900px; margin: 0 auto; padding: 3rem 2rem 6rem; }
     .home-hero { text-align: center; margin-bottom: 3.5rem; animation: fadeUp 0.7s ease forwards; }
     .home-hero h2 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: clamp(2rem, 5vw, 3.2rem); color: var(--ink); margin-bottom: 0.6rem; }
@@ -53,6 +36,7 @@
     .posts-list { display: flex; flex-direction: column; gap: 1.5rem; }
     .post-card { background: var(--warm-white); border: 1px solid var(--border); padding: 2rem 2.5rem; cursor: pointer; transition: transform 0.25s, box-shadow 0.25s; box-shadow: 2px 2px 10px var(--shadow); animation: fadeUp 0.6s ease both; position: relative; }
     .post-card:hover { transform: translateY(-3px); box-shadow: 4px 8px 24px var(--shadow); }
+    .post-card.rant-card { border-left: 3px solid #c0392b; }
     .post-card-type { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rust); margin-bottom: 0.7rem; }
     .post-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 500; color: var(--ink); margin-bottom: 0.6rem; line-height: 1.25; }
     .post-card-excerpt { font-size: 0.9rem; color: var(--ink-light); line-height: 1.75; margin-bottom: 1rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
@@ -61,12 +45,21 @@
     .post-card-actions { position: absolute; top: 1.2rem; right: 1.5rem; display: flex; gap: 0.5rem; opacity: 0; transition: opacity 0.2s; }
     .post-card:hover .post-card-actions { opacity: 1; }
     .icon-btn { background: none; border: none; font-size: 0.85rem; cursor: pointer; padding: 0.3rem; color: var(--sepia); transition: color 0.2s; }
-    .icon-btn:hover { color: var(--rust); }
-    .icon-btn.delete:hover { color: #c0392b; }
+    .icon-btn:hover { color: var(--rust); } .icon-btn.delete:hover { color: #c0392b; }
     .empty-state { text-align: center; padding: 5rem 2rem; color: var(--sepia); }
     .empty-state h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; margin-bottom: 0.8rem; }
     .empty-state p { font-style: italic; font-size: 0.9rem; }
     .loading-state { text-align: center; padding: 4rem; color: var(--sepia); font-style: italic; font-size: 0.95rem; }
+    #about-view { max-width: 720px; margin: 0 auto; padding: 4rem 2rem 6rem; animation: fadeUp 0.7s ease forwards; }
+    .about-header { text-align: center; margin-bottom: 3rem; }
+    .about-header h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 300; color: var(--ink); line-height: 1.1; margin-bottom: 1rem; }
+    .about-header h2 em { color: var(--rust); font-style: italic; }
+    .about-divider { width: 50px; height: 1px; background: var(--amber); margin: 0 auto; }
+    .about-body { background: var(--warm-white); border: 1px solid var(--border); padding: 3rem; box-shadow: 3px 3px 18px var(--shadow); }
+    .about-body p { font-size: 1.05rem; line-height: 1.95; color: var(--ink-light); margin-bottom: 1.5rem; }
+    .about-body p:last-child { margin-bottom: 0; }
+    .about-body p em { color: var(--rust); font-style: italic; }
+    .about-signature { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; font-style: italic; color: var(--sepia); text-align: right; margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--border); }
     #write-view { max-width: 760px; margin: 0 auto; padding: 3rem 2rem 6rem; animation: fadeUp 0.6s ease forwards; }
     .write-header { margin-bottom: 2.5rem; }
     .write-header h2 { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; color: var(--ink); margin-bottom: 0.3rem; }
@@ -78,17 +71,16 @@
     .form-input::placeholder, .form-textarea::placeholder { color: rgba(122,106,82,0.5); }
     .form-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M0 0l6 8 6-8z' fill='%237a6a52'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; cursor: pointer; }
     .form-textarea { resize: vertical; min-height: 320px; line-height: 1.9; font-size: 1rem; }
-    .form-textarea.observation-mode { min-height: 140px; font-style: italic; }
+    .form-textarea.observation-mode, .form-textarea.rant-mode { min-height: 180px; }
     .char-count { font-family: 'DM Mono', monospace; font-size: 0.58rem; color: var(--sepia); opacity: 0.6; text-align: right; margin-top: 0.3rem; }
     .password-gate { background: var(--warm-white); border: 1px solid var(--border); padding: 2rem; margin-bottom: 2rem; box-shadow: 2px 2px 10px var(--shadow); }
     .password-gate p { font-size: 0.88rem; color: var(--sepia); font-style: italic; margin-bottom: 1rem; }
-    .password-row { display: flex; gap: 0; }
+    .password-row { display: flex; }
     .password-row input { flex: 1; background: var(--cream); border: 1px solid var(--border); border-right: none; padding: 0.7rem 1rem; font-family: 'Lora', serif; font-size: 0.9rem; color: var(--ink); outline: none; }
     .password-row button { background: var(--ink); color: var(--cream); border: none; padding: 0.7rem 1.2rem; font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer; }
     .form-actions { display: flex; gap: 1rem; margin-top: 2rem; }
     .btn-save { background: var(--ink); color: var(--cream); font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.85rem 2rem; border: none; cursor: pointer; transition: background 0.2s; }
-    .btn-save:hover { background: var(--rust); }
-    .btn-save:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-save:hover { background: var(--rust); } .btn-save:disabled { opacity: 0.5; cursor: not-allowed; }
     .btn-cancel { background: transparent; color: var(--sepia); font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.85rem 1.5rem; border: 1px solid var(--border); cursor: pointer; transition: all 0.2s; }
     .btn-cancel:hover { border-color: var(--sepia); color: var(--ink); }
     #read-view { max-width: 680px; margin: 0 auto; padding: 3rem 2rem 6rem; animation: fadeUp 0.6s ease forwards; }
@@ -100,15 +92,13 @@
     .read-body { font-size: 1.05rem; line-height: 1.9; color: var(--ink-light); white-space: pre-wrap; }
     .read-body.observation { font-style: italic; font-size: 1.2rem; line-height: 1.8; color: var(--ink); padding: 2rem; background: var(--warm-white); border-left: 3px solid var(--amber); position: relative; }
     .read-body.observation::before { content: '"'; font-family: 'Cormorant Garamond', serif; font-size: 5rem; color: var(--amber); opacity: 0.15; position: absolute; top: 0; left: 1rem; line-height: 1; }
+    .read-body.rant { padding: 2rem; background: var(--warm-white); border-left: 3px solid #c0392b; }
     .read-actions { margin-top: 3rem; display: flex; gap: 1rem; padding-top: 2rem; border-top: 1px solid var(--border); }
     .type-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 0.4rem; vertical-align: middle; }
-    .dot-essay { background: var(--rust); }
-    .dot-creative { background: var(--sage); }
-    .dot-observation { background: var(--amber); }
+    .dot-essay { background: var(--rust); } .dot-creative { background: var(--sage); }
+    .dot-observation { background: var(--amber); } .dot-rant { background: #c0392b; }
     .toast { position: fixed; bottom: 2rem; right: 2rem; background: var(--ink); color: var(--cream); font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; padding: 0.9rem 1.5rem; z-index: 9998; transform: translateY(2rem); opacity: 0; transition: all 0.3s ease; pointer-events: none; }
-    .toast.show { transform: translateY(0); opacity: 1; }
-    .toast.success { border-left: 3px solid var(--sage); }
-    .toast.error { border-left: 3px solid var(--rust); }
+    .toast.show { transform: translateY(0); opacity: 1; } .toast.success { border-left: 3px solid var(--sage); } .toast.error { border-left: 3px solid var(--rust); }
     .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(28,24,18,0.6); z-index: 200; align-items: center; justify-content: center; }
     .modal-overlay.open { display: flex; }
     .modal { background: var(--warm-white); padding: 2.5rem; max-width: 380px; width: 90%; box-shadow: 0 8px 40px rgba(0,0,0,0.25); }
@@ -123,12 +113,27 @@
 <body>
 <header>
   <div class="logo" onclick="showView('home')">The Margin<em> Notes</em></div>
-  <div class="header-actions">
-    <button class="btn btn-ghost" onclick="showView('home')">All Posts</button>
+  <div class="header-nav">
+    <button class="btn btn-ghost active" id="nav-home" onclick="showView('home')">Posts</button>
+    <button class="btn btn-ghost" id="nav-about" onclick="showView('about')">About</button>
     <button class="btn btn-primary" onclick="startWrite()">+ New Entry</button>
   </div>
 </header>
 <div id="home-view" class="view active"><div id="home-inner"></div></div>
+<div id="about-view" class="view">
+  <div class="about-header">
+    <h2>About <em>The Margin Notes</em></h2>
+    <div class="about-divider"></div>
+  </div>
+  <div class="about-body">
+    <p>There is a particular kind of person who writes in the margins of books — not because they have to, but because something in them refuses to let a thought pass without being named. This is a space built for that person. This space was built by that person.</p>
+    <p><em>The Margin Notes</em> is not easily categorised. It is part journal, part essay collection, part late-night monologue. It lives in the in-between — between knowing and wondering, between who I have been and who I am still becoming.</p>
+    <p>I am still figuring myself out. That is not a disclaimer — it is the whole point. These pages are a record of that figuring: the questions I sit with, the things that move me, the observations I cannot shake, and yes, the occasional rant about a world that does not always make sense.</p>
+    <p>I am curious about almost everything. I am a student of life in the truest sense — willing to be wrong, willing to be surprised, willing to learn from a stranger's story as much as from a great book. I believe that paying attention is a form of love, and that writing things down is a way of saying: <em>this mattered.</em></p>
+    <p>If you have found your way here, perhaps something in you recognises something in these words. Stay as long as you like. The margins are wide enough for both of us.</p>
+    <div class="about-signature">— The Writer</div>
+  </div>
+</div>
 <div id="write-view" class="view">
   <div class="write-header">
     <h2 id="write-title-label">New Entry</h2>
@@ -148,6 +153,7 @@
         <option value="essay">Personal Essay / Reflection</option>
         <option value="creative">Creative Writing</option>
         <option value="observation">Observation / Micro-post</option>
+        <option value="rant">Rant</option>
       </select>
     </div>
     <div class="form-group" id="title-group">
@@ -201,6 +207,9 @@
   function showView(name) {
     document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
     document.getElementById(name + '-view').classList.add('active');
+    document.querySelectorAll('.btn-ghost').forEach(b => b.classList.remove('active'));
+    const nb = document.getElementById('nav-' + name);
+    if (nb) nb.classList.add('active');
     if (name === 'home') renderHome();
     window.scrollTo(0, 0);
   }
@@ -209,9 +218,9 @@
     container.innerHTML = '<div class="loading-state">Loading your thoughts...</div>';
     await loadPosts();
     const filtered = activeFilter === 'all' ? posts : posts.filter(p => p.type === activeFilter);
-    const typeLabels = { essay: 'Essay', creative: 'Creative Writing', observation: 'Observation' };
-    const dotClass = { essay: 'dot-essay', creative: 'dot-creative', observation: 'dot-observation' };
-    let html = `<div style="max-width:900px;margin:0 auto;padding:3rem 2rem 6rem"><div class="home-hero"><h2>The Margin Notes</h2><p>Essays, fragments & things written in the in-between</p><div class="hero-rule"></div></div><div class="filter-row"><button class="filter-btn ${activeFilter==='all'?'active':''}" onclick="setFilter('all')">All (${posts.length})</button><button class="filter-btn ${activeFilter==='essay'?'active':''}" onclick="setFilter('essay')">Essays (${posts.filter(p=>p.type==='essay').length})</button><button class="filter-btn ${activeFilter==='creative'?'active':''}" onclick="setFilter('creative')">Creative (${posts.filter(p=>p.type==='creative').length})</button><button class="filter-btn ${activeFilter==='observation'?'active':''}" onclick="setFilter('observation')">Observations (${posts.filter(p=>p.type==='observation').length})</button></div><div class="posts-list">`;
+    const typeLabels = { essay: 'Essay', creative: 'Creative Writing', observation: 'Observation', rant: 'Rant' };
+    const dotClass = { essay: 'dot-essay', creative: 'dot-creative', observation: 'dot-observation', rant: 'dot-rant' };
+    let html = `<div style="max-width:900px;margin:0 auto;padding:3rem 2rem 6rem"><div class="home-hero"><h2>The Margin Notes</h2><p>Essays, fragments & things written in the in-between</p><div class="hero-rule"></div></div><div class="filter-row"><button class="filter-btn ${activeFilter==='all'?'active':''}" onclick="setFilter('all')">All (${posts.length})</button><button class="filter-btn ${activeFilter==='essay'?'active':''}" onclick="setFilter('essay')">Essays (${posts.filter(p=>p.type==='essay').length})</button><button class="filter-btn ${activeFilter==='creative'?'active':''}" onclick="setFilter('creative')">Creative (${posts.filter(p=>p.type==='creative').length})</button><button class="filter-btn ${activeFilter==='observation'?'active':''}" onclick="setFilter('observation')">Observations (${posts.filter(p=>p.type==='observation').length})</button><button class="filter-btn ${activeFilter==='rant'?'active':''}" onclick="setFilter('rant')">Rants (${posts.filter(p=>p.type==='rant').length})</button></div><div class="posts-list">`;
     if (!filtered.length) {
       html += '<div class="empty-state"><h3>Nothing here yet.</h3><p>Click <em>"+ New Entry"</em> to write your first thought.</p></div>';
     } else {
@@ -219,10 +228,11 @@
         const date = new Date(post.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
         const wc = post.body.trim().split(/\s+/).filter(Boolean).length;
         const rt = Math.max(1, Math.ceil(wc / 200));
+        const cardClass = post.type === 'rant' ? 'post-card rant-card' : 'post-card';
         if (post.type === 'observation') {
-          html += `<div class="post-card" onclick="readPost('${post.id}')" style="animation-delay:${i*0.05}s"><div class="post-card-actions"><button class="icon-btn" onclick="event.stopPropagation();editPost('${post.id}')">✎</button><button class="icon-btn delete" onclick="event.stopPropagation();askDelete('${post.id}')">✕</button></div><div class="post-card-type"><span class="type-dot ${dotClass[post.type]}"></span>${typeLabels[post.type]}</div><p class="post-card-observation">${escHtml(post.body.slice(0,200))}${post.body.length>200?'…':''}</p><div class="post-card-meta">${date}</div></div>`;
+          html += `<div class="${cardClass}" onclick="readPost('${post.id}')" style="animation-delay:${i*0.05}s"><div class="post-card-actions"><button class="icon-btn" onclick="event.stopPropagation();editPost('${post.id}')">✎</button><button class="icon-btn delete" onclick="event.stopPropagation();askDelete('${post.id}')">✕</button></div><div class="post-card-type"><span class="type-dot ${dotClass[post.type]}"></span>${typeLabels[post.type]}</div><p class="post-card-observation">${escHtml(post.body.slice(0,200))}${post.body.length>200?'…':''}</p><div class="post-card-meta">${date}</div></div>`;
         } else {
-          html += `<div class="post-card" onclick="readPost('${post.id}')" style="animation-delay:${i*0.05}s"><div class="post-card-actions"><button class="icon-btn" onclick="event.stopPropagation();editPost('${post.id}')">✎</button><button class="icon-btn delete" onclick="event.stopPropagation();askDelete('${post.id}')">✕</button></div><div class="post-card-type"><span class="type-dot ${dotClass[post.type]}"></span>${typeLabels[post.type]}</div><h3>${escHtml(post.title)}</h3><p class="post-card-excerpt">${escHtml(post.body)}</p><div class="post-card-meta">${date} · ${rt} min read · ${wc} words</div></div>`;
+          html += `<div class="${cardClass}" onclick="readPost('${post.id}')" style="animation-delay:${i*0.05}s"><div class="post-card-actions"><button class="icon-btn" onclick="event.stopPropagation();editPost('${post.id}')">✎</button><button class="icon-btn delete" onclick="event.stopPropagation();askDelete('${post.id}')">✕</button></div><div class="post-card-type"><span class="type-dot ${dotClass[post.type]}"></span>${typeLabels[post.type]}</div><h3>${escHtml(post.title)}</h3><p class="post-card-excerpt">${escHtml(post.body)}</p><div class="post-card-meta">${date} · ${rt} min read · ${wc} words</div></div>`;
         }
       });
     }
@@ -233,14 +243,16 @@
     const post = posts.find(p => p.id === id); if (!post) return;
     const date = new Date(post.created_at).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
     const wc = post.body.trim().split(/\s+/).filter(Boolean).length;
-    const typeLabels = { essay: 'Personal Essay', creative: 'Creative Writing', observation: 'Observation' };
-    let html = `<div class="read-type">${typeLabels[post.type]}</div>`;
+    const typeLabels = { essay: 'Personal Essay', creative: 'Creative Writing', observation: 'Observation', rant: 'Rant' };
+    let html = `<div class="read-type">${typeLabels[post.type] || post.type}</div>`;
     if (post.type === 'observation') {
       html += `<div class="read-body observation">${escHtml(post.body)}</div><div class="read-meta" style="margin-top:1.5rem;border-top:1px solid var(--border);padding-top:1rem;border-bottom:none">${date}</div>`;
+    } else if (post.type === 'rant') {
+      html += `<h1 class="read-title">${escHtml(post.title)}</h1><div class="read-meta">${date} · ${Math.max(1,Math.ceil(wc/200))} min read</div><div class="read-body rant">${escHtml(post.body)}</div>`;
     } else {
       html += `<h1 class="read-title">${escHtml(post.title)}</h1><div class="read-meta">${date} · ${Math.max(1,Math.ceil(wc/200))} min read · ${wc} words</div><div class="read-body">${escHtml(post.body)}</div>`;
     }
-    html += `<div class="read-actions"><button class="btn-save" style="background:var(--ink)" onclick="editPost('${post.id}')">Edit Entry</button><button class="btn-cancel" onclick="askDelete('${post.id}')">Delete</button></div>`;
+    html += `<div class="read-actions"><button class="btn-save" style="background:var(--ink)" onclick="editPost('${post.id}')">Edit</button><button class="btn-cancel" onclick="askDelete('${post.id}')">Delete</button></div>`;
     document.getElementById('read-inner').innerHTML = html;
     showView('read');
   }
@@ -260,11 +272,14 @@
   }
   function handleTypeChange() {
     const type = document.getElementById('entry-type').value;
-    document.getElementById('title-group').style.display = type === 'observation' ? 'none' : 'block';
     const ta = document.getElementById('entry-body');
+    document.getElementById('title-group').style.display = type === 'observation' ? 'none' : 'block';
     ta.classList.toggle('observation-mode', type === 'observation');
-    ta.placeholder = type === 'observation' ? 'A thought, a moment...' : type === 'creative' ? 'Begin your story...' : 'Start writing here...';
-    document.getElementById('body-label').textContent = type === 'observation' ? 'Your observation' : type === 'creative' ? 'Your story' : 'Your writing';
+    ta.classList.toggle('rant-mode', type === 'rant');
+    if (type === 'observation') { ta.placeholder = 'A thought, a moment, something overheard...'; document.getElementById('body-label').textContent = 'Your observation'; }
+    else if (type === 'rant') { ta.placeholder = "Say it. Don't hold back..."; document.getElementById('body-label').textContent = 'Your rant'; }
+    else if (type === 'creative') { ta.placeholder = 'Begin your story...'; document.getElementById('body-label').textContent = 'Your story'; }
+    else { ta.placeholder = 'Start writing here...'; document.getElementById('body-label').textContent = 'Your writing'; }
   }
   function updateCharCount() {
     const b = document.getElementById('entry-body').value;
